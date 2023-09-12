@@ -8,7 +8,8 @@ module ActivityPub
   class Activity
     attr_accessor :id, :type, :actor, :object, :target, :published, :to, :cc, :bcc, :context
 
-    # Initializes a new Activity instance.
+    KNOWN_TYPES = %w[Create Update Delete Follow Accept Reject Add Remove Block Like].freeze
+
     def initialize(attributes = {})
       @id = attributes[:id]
       @type = attributes[:type]
@@ -20,14 +21,40 @@ module ActivityPub
       @cc = attributes[:cc]
       @bcc = attributes[:bcc]
       @context = attributes[:context]
+
+      validate!
     end
 
-    # Validate the activity attributes.
-    def valid?
-      validate_type && validate_actor && validate_object
+    def validate!
+      validate_required_fields!
+      validate_known_types!
+      validate_url_format!(@id)
+      validate_url_format!(@actor)
+      validate_url_format!(@object)
+      validate_url_format!(@target)
+      validate_timestamp_format!(@published)
     end
 
-    # Convert the Activity object into a hash representation.
+    def validate_required_fields!
+      raise "Required field 'type' is missing" unless @type
+      raise "Required field 'actor' is missing" unless @actor
+      raise "Required field 'object' is missing" unless @object
+    end
+
+    def validate_known_types!
+      raise "'#{@type}' is not a recognized activity type" unless KNOWN_TYPES.include?(@type)
+    end
+
+    def validate_url_format!(url)
+      raise "Invalid URL format: '#{url}'" unless url.nil? || url.match?(URI::DEFAULT_PARSER.make_regexp)
+    end
+
+    def validate_timestamp_format!(timestamp)
+      Time.iso8601(timestamp)
+    rescue ArgumentError
+      raise "Invalid timestamp format: '#{timestamp}'"
+    end
+
     def to_h
       {
         id: @id,
@@ -43,7 +70,6 @@ module ActivityPub
       }
     end
 
-    # Generate an Activity object from a given hash.
     def self.from_h(hash)
       Activity.new(
         id: hash["id"],
@@ -58,27 +84,6 @@ module ActivityPub
         context: hash["context"]
       )
     end
-
-    private
-
-    # Validate the type attribute. ActivityStreams specifies a set of core activity types.
-    # For simplicity, let's validate against a subset of them.
-    def validate_type
-      valid_types = %w[Create Update Delete Follow Like Add Remove Block Undo]
-      valid_types.include?(@type)
-    end
-
-    # Validate the actor attribute. For this example, we'll just ensure it's present.
-    def validate_actor
-      !@actor.nil? && !@actor.empty?
-    end
-
-    # Validate the object attribute. For this example, we'll ensure it's present.
-    def validate_object
-      !@object.nil? && !@object.empty?
-    end
-
-    # Additional validations and methods based on scenarios can be added here.
   end
 end
 

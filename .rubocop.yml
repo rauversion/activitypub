@@ -19,4 +19,7 @@ Metrics/MethodLength:
   Max: 13
 
 Metrics/BlockLength:
-  Max: 80
+  Max: 120
+
+Metrics/AbcSize:
+  Max: 20
