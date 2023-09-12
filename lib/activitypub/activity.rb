@@ -6,56 +6,79 @@ module ActivityPub
   # This class provides methods for creating, validating, and processing activities
   # in accordance with the ActivityPub standard.
   class Activity
-    # The type of the activity, e.g., 'Create', 'Like', 'Follow', etc.
-    attr_accessor :type
+    attr_accessor :id, :type, :actor, :object, :target, :published, :to, :cc, :bcc, :context
 
-    # The actor performing the activity.
-    attr_accessor :actor
-
-    # The object of the activity, e.g., a post, a comment, etc.
-    attr_accessor :object
-
-    # Any additional properties can go here.
-    # ...
-
-    def initialize(type:, actor:, object:, **other_attributes)
-      @type = type
-      @actor = actor
-      @object = object
-
-      # Handle other attributes as needed
-      other_attributes.each do |key, value|
-        instance_variable_set("@#{key}", value)
-      end
+    # Initializes a new Activity instance.
+    def initialize(attributes = {})
+      @id = attributes[:id]
+      @type = attributes[:type]
+      @actor = attributes[:actor]
+      @object = attributes[:object]
+      @target = attributes[:target]
+      @published = attributes[:published] || Time.now.utc.iso8601
+      @to = attributes[:to]
+      @cc = attributes[:cc]
+      @bcc = attributes[:bcc]
+      @context = attributes[:context]
     end
 
-    # Convert the activity into a hash representation.
+    # Validate the activity attributes.
+    def valid?
+      validate_type && validate_actor && validate_object
+    end
+
+    # Convert the Activity object into a hash representation.
     def to_h
       {
-        '@context': "https://www.w3.org/ns/activitystreams",
+        id: @id,
         type: @type,
         actor: @actor,
-        object: @object
-        # Add any other attributes as needed.
-        # ...
+        object: @object,
+        target: @target,
+        published: @published,
+        to: @to,
+        cc: @cc,
+        bcc: @bcc,
+        context: @context
       }
     end
 
-    # Convert the activity into a JSON representation.
-    def to_json(*args)
-      to_h.to_json(*args)
-    end
-
-    # Load an activity from a hash.
+    # Generate an Activity object from a given hash.
     def self.from_h(hash)
-      new(
+      Activity.new(
+        id: hash["id"],
         type: hash["type"],
         actor: hash["actor"],
-        object: hash["object"]
-        # Handle any other attributes as needed.
-        # ...
+        object: hash["object"],
+        target: hash["target"],
+        published: hash["published"],
+        to: hash["to"],
+        cc: hash["cc"],
+        bcc: hash["bcc"],
+        context: hash["context"]
       )
     end
+
+    private
+
+    # Validate the type attribute. ActivityStreams specifies a set of core activity types.
+    # For simplicity, let's validate against a subset of them.
+    def validate_type
+      valid_types = %w[Create Update Delete Follow Like Add Remove Block Undo]
+      valid_types.include?(@type)
+    end
+
+    # Validate the actor attribute. For this example, we'll just ensure it's present.
+    def validate_actor
+      !@actor.nil? && !@actor.empty?
+    end
+
+    # Validate the object attribute. For this example, we'll ensure it's present.
+    def validate_object
+      !@object.nil? && !@object.empty?
+    end
+
+    # Additional validations and methods based on scenarios can be added here.
   end
 end
 

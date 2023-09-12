@@ -15,7 +15,8 @@ RSpec.describe ActivityPub::Activity do
     subject { described_class.new(type: "Like", actor: "https://example.com/users/alice", object: "https://example.com/posts/1") }
 
     it "converts the activity to a JSON representation" do
-      json_output = subject.to_json
+      json_output = subject.to_h.to_json
+
       parsed_output = JSON.parse(json_output)
 
       expect(parsed_output["type"]).to eq("Like")
