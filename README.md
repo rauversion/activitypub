@@ -14,6 +14,8 @@ This library provides a simple interface to work with the ActivityPub protocol i
 - Signature verification for secured interactions.
 - Simple Sinatra example to demonstrate usage.
 
+For usage guides on RubyOnRails please check the[guides folder](guides/).
+
 ## Installation
 
 ```bash
