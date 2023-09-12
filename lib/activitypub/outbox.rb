@@ -21,12 +21,10 @@ module ActivityPub
       signature = ActivityPub::Signature.sign(activity_data, private_key)
 
       # Send the signed activity to the target actor's inbox
-      response = post_activity(target_inbox_url, activity_data, signature)
+      post_activity(target_inbox_url, activity_data, signature)
 
       # Save the activity in the outbox (not implemented here for simplicity, but would be in a real-world scenario)
       # save_activity(activity_data)
-
-      response
     end
 
     private

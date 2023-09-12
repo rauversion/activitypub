@@ -17,7 +17,7 @@ module ActivityPub
   class Actor
     attr_accessor :id, :type, :name, :preferred_username, :inbox, :outbox, :followers, :following
 
-    def initialize(id:, type: "Person", name:, preferred_username:, inbox:, outbox:, followers: nil, following: nil)
+    def initialize(id:, name:, preferred_username:, inbox:, outbox:, type: "Person", followers: nil, following: nil)
       @id                = id
       @type              = type
       @name              = name
@@ -57,6 +57,26 @@ module ActivityPub
         followers: hash["followers"],
         following: hash["following"]
       )
+    end
+
+    class Person < Actor
+      # Attributes and methods specific to a Person actor type.
+    end
+
+    class Service < Actor
+      # Attributes and methods specific to a Service actor type.
+    end
+
+    class Group < Actor
+      # Attributes and methods specific to a Group actor type.
+    end
+
+    class Organization < Actor
+      # Attributes and methods specific to an Organization actor type.
+    end
+
+    class Application < Actor
+      # Attributes and methods specific to an Application actor type.
     end
   end
 end

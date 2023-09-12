@@ -1,3 +1,6 @@
+AllCops:
+  NewCops: enable
+
 Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
@@ -8,9 +11,6 @@ Style/StringLiteralsInInterpolation:
 
 Layout/LineLength:
   Max: 190
-
-Metrics/BlockLength:
-  Max: 60
 
 Metrics/ParameterLists:
   Max: 8

@@ -21,7 +21,7 @@ module ActivityPub
     # Signs data with the given private key
     def self.sign(data, private_key_pem)
       private_key = OpenSSL::PKey::RSA.new(private_key_pem)
-      signature = private_key.sign(OpenSSL::Digest::SHA256.new, data)
+      signature = private_key.sign(OpenSSL::Digest.new("SHA256"), data)
       Base64.encode64(signature).gsub("\n", "")
     end
 
@@ -29,7 +29,7 @@ module ActivityPub
     def self.verify?(data, signature, public_key_pem)
       public_key = OpenSSL::PKey::RSA.new(public_key_pem)
       signature_decoded = Base64.decode64(signature)
-      public_key.verify(OpenSSL::Digest::SHA256.new, signature_decoded, data)
+      public_key.verify(OpenSSL::Digest.new("SHA256"), signature_decoded, data)
     end
   end
 end
