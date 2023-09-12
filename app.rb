@@ -25,8 +25,6 @@ post '/actors/1/inbox' do
   [200, "Activity received"]
 end
 
-
-
 get '/' do
   %(
     "ActivityPub Sinatra Example"

@@ -40,7 +40,6 @@ module ActivityPub
   end
 end
 
-
 =begin
   obj = ActivityPub::Object.new(id: 'https://example.com/objects/1', content: 'Hello world!')
 puts obj.to_json

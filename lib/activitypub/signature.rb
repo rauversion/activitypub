@@ -1,8 +1,8 @@
 require 'openssl'
 
-# Digital signatures are essential in federated networks 
+# Digital signatures are essential in federated networks
 # like ActivityPub to ensure data integrity and authenticity.
-# A commonly used algorithm for generating these signatures 
+# A commonly used algorithm for generating these signatures
 # in the ActivityPub community is the RSA-SHA256 algorithm.
 
 module ActivityPub

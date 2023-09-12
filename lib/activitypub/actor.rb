@@ -1,7 +1,7 @@
-# The ActivityPub::Actor represents individual and 
+# The ActivityPub::Actor represents individual and
 # collective entities which perform activities.
-# Commonly used actor types include Person, Organization, 
-# Service, etc. For simplicity, we will focus on the Person 
+# Commonly used actor types include Person, Organization,
+# Service, etc. For simplicity, we will focus on the Person
 # actor type.
 
 # Here's a basic representation for the ActivityPub::Actor:
@@ -15,10 +15,10 @@ module ActivityPub
       @type              = type
       @name              = name
       @preferred_username = preferred_username
-      @inbox             = inbox
-      @outbox            = outbox
-      @followers         = followers
-      @following         = following
+      @inbox = inbox
+      @outbox = outbox
+      @followers = followers
+      @following = following
     end
 
     def to_h

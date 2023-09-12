@@ -5,7 +5,7 @@ RSpec.describe ActivityPub::Outbox do
   let(:inbox_url) { "https://recipient.com/actors/2/inbox" }
   let(:keypair) { ActivityPub::Signature.generate_keypair }
   let(:activity_data) { '{"type":"Note","content":"Hello from outbox!"}' }
-  
+
   subject { described_class.new(actor_id: actor_id, private_key: keypair[:private]) }
 
   # Stubbing the HTTP request to avoid actual posts during tests
@@ -14,10 +14,10 @@ RSpec.describe ActivityPub::Outbox do
       .with(
         body: activity_data,
         headers: {
-          'Accept'=>'*/*',
-          'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+          'Accept' => '*/*',
+          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
           'Content-Type' => 'application/ld+json',
-          'User-Agent'=>'Ruby',
+          'User-Agent' => 'Ruby',
           'Signature' => ActivityPub::Signature.sign(activity_data, keypair[:private])
         }
       )

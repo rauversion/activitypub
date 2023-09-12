@@ -1,6 +1,5 @@
 # spec/activitypub/object_spec.rb
 
-
 RSpec.describe ActivityPub::Object do
   let(:current_time) { Time.now.utc.iso8601 }
 

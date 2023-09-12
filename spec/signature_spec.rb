@@ -1,17 +1,16 @@
 # spec/activitypub/signature_spec.rb
 
-
 RSpec.describe ActivityPub::Signature do
   let(:keypair) { described_class.generate_keypair }
   let(:data) { "Important data that needs to be signed" }
-  
+
   describe '.generate_keypair' do
     it 'generates a valid RSA key pair' do
       expect(keypair[:private]).to be_a(String)
       expect(keypair[:public]).to be_a(String)
     end
   end
-  
+
   describe '.sign' do
     let(:signature) { described_class.sign(data, keypair[:private]) }
 
@@ -21,7 +20,7 @@ RSpec.describe ActivityPub::Signature do
       # or perhaps try verifying the signature as a test.
     end
   end
-  
+
   describe '.verify?' do
     let(:signature) { described_class.sign(data, keypair[:private]) }
 

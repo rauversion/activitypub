@@ -2,13 +2,13 @@ module ActivityPub
   class Activity
     # The type of the activity, e.g., 'Create', 'Like', 'Follow', etc.
     attr_accessor :type
-    
+
     # The actor performing the activity.
     attr_accessor :actor
-    
+
     # The object of the activity, e.g., a post, a comment, etc.
     attr_accessor :object
-    
+
     # Any additional properties can go here.
     # ...
 
@@ -53,18 +53,15 @@ module ActivityPub
   end
 end
 
-#Usage example:
+# Usage example:
 
-#ruby
-#Copy code
-#activity = ActivityPub::Activity.new(type: 'Like', actor: 'https://example.com/users/alice', object: 'https://example.com/posts/1')
-#puts activity.to_json
+# ruby
+# Copy code
+# activity = ActivityPub::Activity.new(type: 'Like', actor: 'https://example.com/users/alice', object: 'https://example.com/posts/1')
+# puts activity.to_json
 
-#loaded_activity = ActivityPub::Activity.from_h(JSON.parse(activity.to_json))
-#puts loaded_activity.type # => "Like"
-#Note that this is a basic and illustrative implementation. In a real-world scenario, you would need to handle more attributes, validations, and scenarios specified by the ActivityStreams and ActivityPub specifications.
-
-
-
-
-
+# loaded_activity = ActivityPub::Activity.from_h(JSON.parse(activity.to_json))
+# puts loaded_activity.type # => "Like"
+# Note that this is a basic and illustrative implementation.
+# In a real-world scenario, you would need to handle more attributes, validations,
+# and scenarios specified by the ActivityStreams and ActivityPub specifications.
