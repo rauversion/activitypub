@@ -1,4 +1,10 @@
+
+
 # ActivityPub Ruby Library
+
+[![Maintainability](https://api.codeclimate.com/v1/badges/f1be0b7028f6e7d5b3d9/maintainability)](https://codeclimate.com/github/rauversion/activitypub/maintainability)
+
+[![Ruby](https://github.com/rauversion/activitypub/actions/workflows/main.yml/badge.svg)](https://github.com/rauversion/activitypub/actions/workflows/main.yml)
 
 This library provides a simple interface to work with the ActivityPub protocol in Ruby applications.
 
