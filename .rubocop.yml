@@ -8,3 +8,15 @@ Style/StringLiteralsInInterpolation:
 
 Layout/LineLength:
   Max: 190
+
+Metrics/BlockLength:
+  Max: 60
+
+Metrics/ParameterLists:
+  Max: 8
+
+Metrics/MethodLength:
+  Max: 13
+
+Metrics/BlockLength:
+  Max: 80

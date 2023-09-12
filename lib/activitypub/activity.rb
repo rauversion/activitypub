@@ -1,4 +1,10 @@
+# frozen_string_literal: true
+
 module ActivityPub
+  # The Activity class represents a specific action or event in the ActivityPub protocol.
+  # It encapsulates details of the action being taken and any associated metadata.
+  # This class provides methods for creating, validating, and processing activities
+  # in accordance with the ActivityPub standard.
   class Activity
     # The type of the activity, e.g., 'Create', 'Like', 'Follow', etc.
     attr_accessor :type
@@ -26,7 +32,7 @@ module ActivityPub
     # Convert the activity into a hash representation.
     def to_h
       {
-        '@context': 'https://www.w3.org/ns/activitystreams',
+        '@context': "https://www.w3.org/ns/activitystreams",
         type: @type,
         actor: @actor,
         object: @object
@@ -43,9 +49,9 @@ module ActivityPub
     # Load an activity from a hash.
     def self.from_h(hash)
       new(
-        type: hash['type'],
-        actor: hash['actor'],
-        object: hash['object']
+        type: hash["type"],
+        actor: hash["actor"],
+        object: hash["object"]
         # Handle any other attributes as needed.
         # ...
       )

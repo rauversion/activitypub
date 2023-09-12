@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # The ActivityPub::Actor represents individual and
 # collective entities which perform activities.
 # Commonly used actor types include Person, Organization,
@@ -7,10 +9,15 @@
 # Here's a basic representation for the ActivityPub::Actor:
 
 module ActivityPub
+  # The Actor class represents participants in the ActivityPub network.
+  # An Actor can be an individual user, a group, a service, or any other entity
+  # that performs actions on the network. This class handles details related to
+  # actor identity, public keys, endpoints, and other metadata essential for
+  # secure and accurate communication within the ActivityPub protocol.
   class Actor
     attr_accessor :id, :type, :name, :preferred_username, :inbox, :outbox, :followers, :following
 
-    def initialize(id:, type: 'Person', name:, preferred_username:, inbox:, outbox:, followers: nil, following: nil)
+    def initialize(id:, type: "Person", name:, preferred_username:, inbox:, outbox:, followers: nil, following: nil)
       @id                = id
       @type              = type
       @name              = name
@@ -23,7 +30,7 @@ module ActivityPub
 
     def to_h
       {
-        '@context': 'https://www.w3.org/ns/activitystreams',
+        '@context': "https://www.w3.org/ns/activitystreams",
         id: @id,
         type: @type,
         name: @name,
@@ -41,14 +48,14 @@ module ActivityPub
 
     def self.from_h(hash)
       new(
-        id: hash['id'],
-        type: hash['type'] || 'Person',
-        name: hash['name'],
-        preferred_username: hash['preferredUsername'],
-        inbox: hash['inbox'],
-        outbox: hash['outbox'],
-        followers: hash['followers'],
-        following: hash['following']
+        id: hash["id"],
+        type: hash["type"] || "Person",
+        name: hash["name"],
+        preferred_username: hash["preferredUsername"],
+        inbox: hash["inbox"],
+        outbox: hash["outbox"],
+        followers: hash["followers"],
+        following: hash["following"]
       )
     end
   end

@@ -9,8 +9,8 @@ gem "pry"
 
 gem "webmock"
 
-gem "sinatra"
 gem "puma"
+gem "sinatra"
 
 gem "rake", "~> 13.0"
 

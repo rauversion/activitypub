@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # spec/activitypub/outbox_spec.rb
 
 RSpec.describe ActivityPub::Outbox do
@@ -14,18 +16,18 @@ RSpec.describe ActivityPub::Outbox do
       .with(
         body: activity_data,
         headers: {
-          'Accept' => '*/*',
-          'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-          'Content-Type' => 'application/ld+json',
-          'User-Agent' => 'Ruby',
-          'Signature' => ActivityPub::Signature.sign(activity_data, keypair[:private])
+          "Accept" => "*/*",
+          "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+          "Content-Type" => "application/ld+json",
+          "User-Agent" => "Ruby",
+          "Signature" => ActivityPub::Signature.sign(activity_data, keypair[:private])
         }
       )
       .to_return(status: 200, body: "", headers: {})
   end
 
-  describe '#send_activity' do
-    it 'sends the activity to the target inbox' do
+  describe "#send_activity" do
+    it "sends the activity to the target inbox" do
       response = subject.send_activity(inbox_url, activity_data)
       expect(response.code).to eq("200")
     end

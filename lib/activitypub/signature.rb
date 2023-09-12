@@ -1,4 +1,6 @@
-require 'openssl'
+# frozen_string_literal: true
+
+require "openssl"
 
 # Digital signatures are essential in federated networks
 # like ActivityPub to ensure data integrity and authenticity.
@@ -6,6 +8,9 @@ require 'openssl'
 # in the ActivityPub community is the RSA-SHA256 algorithm.
 
 module ActivityPub
+  # This class handles the generation and verification of ActivityPub signatures.
+  # It ensures that outgoing messages are authenticated and incoming messages
+  # are verified against a known public key.
   class Signature
     # Generates a new RSA private and public key pair
     def self.generate_keypair
@@ -17,7 +22,7 @@ module ActivityPub
     def self.sign(data, private_key_pem)
       private_key = OpenSSL::PKey::RSA.new(private_key_pem)
       signature = private_key.sign(OpenSSL::Digest::SHA256.new, data)
-      Base64.encode64(signature).gsub("\n", '')
+      Base64.encode64(signature).gsub("\n", "")
     end
 
     # Verifies the signature with the provided public key

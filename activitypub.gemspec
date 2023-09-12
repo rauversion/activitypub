@@ -10,10 +10,10 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "A Ruby library for the ActivityPub protocol."
   spec.description   = "A comprehensive library for building and parsing ActivityPub content in Ruby."
-  spec.homepage      = "https://github.com/rauversion/activitypub_ruby"
+  spec.homepage      = "https://github.com/rauversion/activitypub"
   spec.license       = "MIT"
 
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.3.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.4")
 
   # spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 

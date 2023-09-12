@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require "json"
-require 'time'
-require 'base64'
+require "time"
+require "base64"
 require_relative "activitypub/version"
 require_relative "activitypub/activity"
 require_relative "activitypub/object"

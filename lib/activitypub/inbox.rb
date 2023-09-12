@@ -1,7 +1,12 @@
-require 'net/http'
-require 'json'
+# frozen_string_literal: true
+
+require "net/http"
+require "json"
 
 module ActivityPub
+  # The Inbox class manages the reception of activities from other actors.
+  # It is responsible for validating incoming activities, verifying signatures,
+  # and processing or storing them as needed in the context of the ActivityPub protocol.
   class Inbox
     attr_reader :actor_id
 
@@ -17,9 +22,7 @@ module ActivityPub
       signature = headers["Signature"]
 
       # Verify the activity's signature
-      unless ActivityPub::Signature.verify?(activity_data, signature, public_key)
-        raise "Invalid signature"
-      end
+      raise "Invalid signature" unless ActivityPub::Signature.verify?(activity_data, signature, public_key)
 
       # Process activity
       process_activity(activity_data)
@@ -35,7 +38,7 @@ module ActivityPub
 
       # This assumes the public key is stored under a 'publicKey' key in the actor's profile.
       # This structure may vary based on the implementation details of the server hosting the actor's profile.
-      profile['publicKey']['publicKeyPem']
+      profile["publicKey"]["publicKeyPem"]
     end
 
     def process_activity(activity_data)

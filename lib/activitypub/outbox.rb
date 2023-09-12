@@ -1,6 +1,12 @@
-require 'net/http'
+# frozen_string_literal: true
+
+require "net/http"
 
 module ActivityPub
+  # The Outbox class is responsible for sending activities to other actors.
+  # It wraps the process of preparing an activity, signing it, and then delivering it to
+  # the recipient's inbox. This ensures that messages sent via ActivityPub are
+  # authenticated and securely delivered.
   class Outbox
     attr_reader :actor_id, :private_key
 
@@ -28,7 +34,7 @@ module ActivityPub
     def post_activity(inbox_url, activity_data, signature)
       uri = URI(inbox_url)
       http = Net::HTTP.new(uri.host, uri.port)
-      request = Net::HTTP::Post.new(uri.path, { 'Content-Type' => 'application/ld+json', 'Signature' => signature })
+      request = Net::HTTP::Post.new(uri.path, { "Content-Type" => "application/ld+json", "Signature" => signature })
       request.body = activity_data
       http.request(request)
     end

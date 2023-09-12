@@ -1,4 +1,6 @@
-require 'sinatra'
+# frozen_string_literal: true
+
+require "sinatra"
 require_relative "lib/activitypub"
 
 # For simplicity, we'll hardcode actor_id and generate a keypair on startup
@@ -6,7 +8,7 @@ actor_id = "https://example.com/actors/1"
 keypair = ActivityPub::Signature.generate_keypair
 outbox = ActivityPub::Outbox.new(actor_id: actor_id, private_key: keypair[:private])
 
-post '/actors/1/outbox' do
+post "/actors/1/outbox" do
   target_inbox_url = params[:inbox_url] # expect the client to provide target inbox URL
   activity_data = params[:activity_data] # and the activity data
 
@@ -14,9 +16,9 @@ post '/actors/1/outbox' do
   [response.code.to_i, response.body]
 end
 
-post '/actors/1/inbox' do
+post "/actors/1/inbox" do
   # This is where other actors would send activities to our actor
-  incoming_activity = JSON.parse(params['incoming_activity']) # JSON.parse(request.body.read)
+  incoming_activity = JSON.parse(params["incoming_activity"]) # JSON.parse(request.body.read)
 
   # For demonstration purposes, we'll just print the activity to the console
   puts "Received activity: #{incoming_activity}"
@@ -25,7 +27,7 @@ post '/actors/1/inbox' do
   [200, "Activity received"]
 end
 
-get '/' do
+get "/" do
   %(
     "ActivityPub Sinatra Example"
     <h2>Send an Activity to Outbox</h2>
